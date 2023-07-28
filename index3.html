@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOOK IT! - Discover great places for you</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <header class="header">
+        <h1>
+            BOOK IT!
+        </h1>
+        <div class="finder-container">
+
+<div class="filter-card">
+    <select class="filter-country filter-Icon" name="filter-country" id="filter-country">
+        <option value="value0">All countries</option>
+        <option value="value1">Argentina</option>
+        <option value="value2">Brasil</option>
+        <option value="value3">Chile</option>
+        <option value="value4">Uruguay</option>
+    </select>
+    
+    <input class="filter-Icon filter-date-from"  type ="date">
+    <input class="filter-Icon filter-date-to" type ="date">
+    
+    <select class="filter-price filter-Icon" name="filter-price" id="filter-price">
+        <option value="value0">   All prices</option>
+        <option value="value1">$</option>
+        <option value="value2">$$</option>
+        <option value="value3">$$$</option>
+        <option value="value3">$$$$</option>
+    </select>
+    <select class="filter-sizes filter-Icon" name="filter-sizes" id="filter-sizes">
+        <option value="value0">All sizes</option>
+        <option value="value1">Small</option>
+        <option value="value2">Medium</option>
+        <option value="value3">Large</option>
+    </select>
+    <button class="filter-Icon" onclick="document.location.reload()">Clear</button>
+</div>
+</div>
+<div class="information">
+<p>We have found for you...</p>
+    <h2>All sizes hotels of all category prices, in all countries.</h2>
+</div>    
+</header>
+</body>
+</html>
