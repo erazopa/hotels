@@ -136,6 +136,7 @@ window.addEventListener("load", async () => {
         const to = new Date(checkout.value);
     const formatto = new Date(
       to.getTime() + to.getTimezoneOffset() * 60000);
+      
     const mls = formatto - formatfrom;
     const filterDays = mls / (1000 * 60 * 60 * 24);
     // console.log(filterDays);
