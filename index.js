@@ -11,18 +11,17 @@ const today = new Date();
 window.addEventListener("load", async () => {
   const respuesta = await requestingHotels();
   const data = await respuesta.json();
-  console.log(data[0].photo);
 
   // creacion de container para las cards
   const section = document.createElement("section");
   section.className = "section-cards";
   main.appendChild(section);
 
+  // llamo a la section para usar el innerHTML
   const sectioncart = document.querySelector(".section-cards");
-  // filtro fecha ingreso y salida
-
-  // hallar días disponibles hoteles
-
+  
+  // arreglo fecha adiciono el 0
+  
   function addZeroDate(fecha) {
     const convText = "" + fecha;
     if (convText.length === 1) {
@@ -43,7 +42,7 @@ window.addEventListener("load", async () => {
   checkin.setAttribute("min", fechaCheckin);
   checkout.setAttribute("min", fechaCheckout);
 
-  // traemos el arreglo de los hoteles
+  // traemos el arreglo de los hoteles y desarrollo de las cards
   const renderdata = (hotel) => {
     hotel.forEach((hotel) => {
       const cardHotels = document.createElement("div");
@@ -127,33 +126,28 @@ window.addEventListener("load", async () => {
     });
   };
 
-  // filtro fecha
-
-     
-    const filterDate = () => {
-      const from = new Date(checkin.value);
-      const to = new Date(checkout.value);
-      const mls = to - from;
-      const filterDays = mls / (1000 * 60 * 60 * 24);
-      console.log(mls);
-  
-    // const filterCheckout = data.filter(hotel);
+  // trabajando filtro fecha api hoteles
+  renderdata(data);
+  const filterDate = () => {
+    const from = new Date(checkin.value);
+    const formatfrom = new Date(
+      from.getTime() + from.getTimezoneOffset() * 60000
+    );
+        const to = new Date(checkout.value);
+    const formatto = new Date(
+      to.getTime() + to.getTimezoneOffset() * 60000);
+    const mls = formatto - formatfrom;
+    const filterDays = mls / (1000 * 60 * 60 * 24);
+    // console.log(filterDays);
+    const fData = data.filter((hotel) => mls >= hotel.availabilityTo);
+    console.log(fData);
+    sectioncart.innerHTML="";
     
-    if (filterDays>= data.availabilityTo) {
-      return renderdata(filterCheckout);
-    } else {
-      return console.log("hotel no disponible");
-    }
-    sectioncart.innerHTML = "";
-    renderdata(filterDate);
-    console.log(filterCheckout);
+    return renderdata(fData);
   };
 
-  checkin.addEventListener("change", filterDate);
-  checkout.addEventListener("change", filterDate);
-
   // filtro precios
-  renderdata(data);
+  // renderdata(data);
   const filterHotel = () => {
     const pricehotels = data.filter(
       (hotel) => filterprice.value == hotel.price
@@ -164,7 +158,19 @@ window.addEventListener("load", async () => {
     if (filterprice.value == "0") {
       renderdata(data);
     }
+    return pricehotels;
+
   };
+// creacion de funcion para unir las funciones de filtros
+  // const addfilters = () => {
+  //   const totalfilters = filterHotel() && filterDate();
+  //   sectioncart.innerHTML = "";
+  //   // return
+  //   renderdata(totalfilters);
+  //   console.log(addfilters);
+  // };
 
   filterprice.addEventListener("change", filterHotel);
+  checkin.addEventListener("change", filterDate);
+  checkout.addEventListener("change", filterDate);
 });
