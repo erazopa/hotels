@@ -6,6 +6,19 @@ const filterprice = document.getElementById("filter-price");
 const checkin = document.getElementById("filter-date-from");
 const checkout = document.getElementById("filter-date-to");
 const today = new Date();
+const filtercountry = document.getElementById("filter-country");
+const filtersizes = document.getElementById("filter-sizes");
+
+const hotelRooms = (rooms) => {
+  if (rooms <=10){
+      return `small`
+  }else if (rooms <=30){
+      return `medium`
+  }else {
+      return`large`
+  }
+  };
+
 
 // llamamos los datos para que impriman en pantalla
 window.addEventListener("load", async () => {
@@ -160,8 +173,28 @@ window.addEventListener("load", async () => {
       renderdata(data);
     }
     return pricehotels;
-
   };
+
+    const countryFilter = () => {
+    const countryhotels = data.filter(
+      (hotel) => filtercountry.value == hotel.country
+    );
+    sectioncart.innerHTML = "";
+    renderdata(countryhotels);
+    console.log(countryhotels);
+    if (filtercountry.value == "All") {
+      renderdata(data);
+    }
+    return countryhotels;
+  }
+
+  
+    const sizesfilterhotel = () => {
+        filtersizes === `All` || filtersizes === hotelRooms(hotel.rooms);
+    sectioncart.innerHTML = "";
+  }
+
+
 // creacion de funcion para unir las funciones de filtros
   // const addfilters = () => {
   //   const totalfilters = filterHotel() && filterDate();
@@ -174,4 +207,6 @@ window.addEventListener("load", async () => {
   filterprice.addEventListener("change", filterHotel);
   checkin.addEventListener("change", filterDate);
   checkout.addEventListener("change", filterDate);
+  filtercountry.addEventListener("change", countryFilter);
+  filtersizes.addEventListener("change", sizesfilterhotel);
 });
